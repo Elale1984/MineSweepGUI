@@ -39,15 +39,19 @@ namespace MineSweepGUI
             timer.Start();
             tm_GameTime.Start();
 
+            //Plants the bombs
             gameBoard.SetupLiveMembers(gameDifficulty); 
-            for (int r = 0; r < myBoardSize -1; r++)
+
+            //Iterates through the board and calculates live neighors
+            for (int r = 0; r < myBoardSize; r++)
             {
-                for (int c = 0; c < myBoardSize-1; c++)
+                for (int c = 0; c < myBoardSize; c++)
                 {
                     gameBoard.CalcLiveMembers(r, c);
                 }
             }
            
+            //method call to create the board
             PopulateGrid(myBoardSize);
             
         }
@@ -76,23 +80,23 @@ namespace MineSweepGUI
                 for (int c = 0; c < boardSize; c++)
                 {
                     
-
+                    //creates the individual button
                     boardGrid[r, c] = new Button();
 
+                    // assigns the size of the buttons of the grid
                     boardGrid[r, c].Width = buttonSize;
                     boardGrid[r, c].Height = buttonSize;
+
+                    //Set all of the buttons to the facingDown pgn 
                     boardGrid[r, c].BackgroundImage = Properties.Resources.facingDown;
                     boardGrid[r, c].BackgroundImageLayout = ImageLayout.Stretch;
 
+                    //Assign btn click even to each button
                     boardGrid[r, c].MouseDown += Grid_Button_Click;
+
+                    //Adds the button to the pannel and sets the location 
                     pn_Board.Controls.Add(boardGrid[r, c]);
-
-                   
-
-                    boardGrid[r, c].Location = new Point(buttonSize * r, buttonSize * c);
-                    
-                    
-                    boardGrid[r, c].Tag = r.ToString() + "|" + c.ToString();
+                    boardGrid[r, c].Location = new Point(buttonSize * r, buttonSize * c);   
 
                 }
             }
